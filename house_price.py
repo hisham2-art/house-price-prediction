@@ -169,12 +169,14 @@ for model_name, metrics in results.items():
 plt.figure(figsize=(8,5))
 sns.histplot(train['SalePrice'], kde=True, color='black')
 plt.title('Distribution of Sale Price after Log Transformation')
+plt.savefig("plots/Distribution_of_SalePrice_after_Log_Transformation.png", bbox_inches="tight")
 plt.show()
 
 # Heatmap to show correlation between columns
 plt.figure(figsize=(12,8))
 sns.heatmap(train[numerical_col].corr(), cmap='coolwarm')
 plt.title("Correlation Heat Map")
+plt.savefig("plots/Correlation_Heat_Map.png", bbox_inches="tight")
 plt.show()
 
 # Actual vs. Predicted Prices
@@ -186,6 +188,7 @@ plt.title("Actual vs Predicted Prices(XGBoost)")
 
 # Perfect prediction line
 plt.plot([y.min(), y.max()], [y.min(), y.max()], color='red')
+plt.savefig("plots/Actual_vs_Predicted_Prices(XGBoost).png", bbox_inches="tight")
 plt.show()
 
 # Important features plot
@@ -218,6 +221,7 @@ for i, feature in enumerate(top_6_features['feature']):
     axes[i].set_ylabel('SalePrice')
     axes[i].set_title(f'{feature} vs SalePrice')
 plt.tight_layout()
+plt.savefig("plots/relationship_of_top_6_features_with_SalePrice.png", bbox_inches="tight")
 plt.show()
 
 
