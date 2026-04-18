@@ -1,75 +1,188 @@
 # 🏠 House Price Prediction
 
-A machine learning project that predicts house prices using the Kaggle House Prices dataset.
-Built using Python with Linear Regression, Random Forest, and XGBoost models.
+A machine learning project to predict house prices using advanced regression techniques. This project uses multiple models including Linear Regression, Random Forest, and XGBoost, with a focus on proper data preprocessing, cross-validation, and model evaluation.
+
+---
+
+## 📌 Project Overview
+
+The goal of this project is to accurately predict house prices based on various features such as size, quality, number of rooms, and more.
+
+This project demonstrates:
+
+* Data cleaning and preprocessing
+* Feature engineering and encoding
+* Model training and evaluation
+* Hyperparameter tuning
+* Cross-validation for reliable performance
+* Kaggle submission pipeline
 
 ---
 
 ## 📊 Dataset
-- Source: [Kaggle - House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
-- 1460 houses with 81 features each
-- Target variable: SalePrice
+
+* Source: Kaggle – *House Prices: Advanced Regression Techniques*
+* Training Data: 1460 samples
+* Test Data: 1459 samples
+* Features: 80+ variables describing residential homes
 
 ---
 
-## 🔍 Project Workflow
+## ⚙️ Workflow
 
-### 1. Exploratory Data Analysis (EDA)
-- Checked dataset shape, dtypes and missing values
-- Discovered SalePrice was right skewed → fixed with log transformation
-- Found top correlated features using correlation heatmap
-- Visualized relationships using scatter plots
+### 1. Data Preprocessing
 
-### 2. Data Cleaning
-- Dropped columns with more than 50% missing values
-- Filled numerical missing values with median
-- Filled categorical missing values with mode
+* Removed columns with more than 50% missing values
+* Filled missing values:
 
-### 3. Encoding
-- Applied One Hot Encoding using pd.get_dummies()
-- Expanded dataset from 76 to 273 columns
+  * Numerical → Median
+  * Categorical → Mode
+* Applied **log transformation** on target variable (`SalePrice`) to reduce skewness
 
-### 4. Modeling
-Trained and compared three models:
+---
 
-| Model | MAE | RMSE | R2 Score |
-|---|---|---|---|
-| Linear Regression | $15,060 | $22,972 | **0.9312** 🏆 |
-| Random Forest | $17,518 | $28,770 | 0.8921 |
-| XGBoost | $17,018 | $27,050 | 0.9046 |
+### 2. Feature Engineering
 
-**Linear Regression performed best** after log transforming SalePrice!
+* One-hot encoding for categorical variables
+* Feature alignment between train and test datasets
+
+---
+
+### 3. Model Training
+
+The following models were used:
+
+* Linear Regression
+* Random Forest Regressor
+* XGBoost Regressor
+
+---
+
+### 4. Model Evaluation
+
+Models were evaluated using:
+
+* **R² Score** → Model fit
+* **MAE (Mean Absolute Error)** → Average error
+* **RMSE (Root Mean Squared Error)** → Penalizes large errors
+
+Cross-validation was used to ensure reliable and unbiased performance.
 
 ---
 
 ## 📈 Results
 
-### Actual vs Predicted Prices
-![Actual vs Predicted](plots/actual_vs_predicted.png)
+| Model             | MAE ($) | RMSE ($) | R² Score |
+| ----------------- | ------- | -------- | -------- |
+| Linear Regression | 17,061  | 63,440   | 0.36     |
+| Random Forest     | 17,601  | 30,434   | 0.85     |
+| XGBoost           | 15,901  | 27,868   | 0.87     |
 
-### Top 15 Most Important Features
-![Feature Importance](plots/feature_importance.png)
-
----
-
-## 🛠️ Libraries Used
-- pandas
-- numpy
-- matplotlib
-- scikit-learn
-- xgboost
+✅ **Best Model: XGBoost**
 
 ---
 
-## 🚀 How to Run
-1. Clone the repo
-2. Install dependencies: pip install pandas numpy matplotlib scikit-learn xgboost
-3. Add `train.csv` to the `data/` folder
-4. Run `house_price.py`
+## 📊 Feature Importance
+
+Top features influencing house prices:
+
+![Top Features](plots/top_features.png)
 
 ---
 
-## 💡 Key Learnings
-- Log transforming skewed target variables significantly improves Linear Regression
-- A simple model with well prepared data can outperform complex models
-- OverallQual (overall house quality) is the strongest predictor of house price
+## 🚀 Kaggle Performance
+
+* Score improved from **0.155 → 0.134**
+* Achieved using:
+
+  * Cross-validation
+  * Hyperparameter tuning
+  * Log transformation
+
+---
+
+## 🧠 Key Learnings
+
+* Cross-validation provides realistic model evaluation
+* Log transformation helps with skewed target variables
+* Tree-based models handle non-linearity better than linear models
+* Consistent preprocessing between train and test is critical
+* MAE and RMSE provide better real-world insight than R² alone
+
+---
+
+## 📂 Project Structure
+
+```
+house-price-prediction/
+│
+├── data/
+│   ├── train.csv
+│   └── test.csv
+│
+├── plots/
+│   └── top_features.png
+│
+├── house_price.py
+├── submission.csv
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## 🛠️ Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Usage
+
+```bash
+python house_price.py
+```
+
+This will:
+
+* Train models
+* Evaluate performance
+* Generate predictions
+* Create `submission.csv`
+
+---
+
+## 📦 Requirements
+
+* pandas
+* numpy
+* matplotlib
+* scikit-learn
+* xgboost
+
+---
+
+## 🎯 Future Improvements
+
+* Feature engineering (e.g., total area, house age)
+* Advanced encoding techniques (target encoding)
+* Model ensembling
+* Pipeline automation
+* Deployment using Streamlit
+
+---
+
+## 🙌 Acknowledgements
+
+* Kaggle for dataset and competition
+* Scikit-learn & XGBoost for ML tools
+
+---
+
+## 📬 Contact
+
+If you found this project useful or have suggestions, feel free to reach out!
+
+---
