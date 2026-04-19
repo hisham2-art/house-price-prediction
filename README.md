@@ -1,113 +1,160 @@
-# 🏠 House Price Prediction
+# 🏠 House Price Prediction — Advanced Machine Learning Project
 
-A machine learning project to predict house prices using advanced regression techniques. This project uses multiple models including Linear Regression, Random Forest, and XGBoost, with a focus on proper data preprocessing, cross-validation, and model evaluation.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![ML](https://img.shields.io/badge/Machine%20Learning-Project-green)
+![Kaggle](https://img.shields.io/badge/Kaggle-Competition-orange)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
----
-
-## 📌 Project Overview
-
-The goal of this project is to accurately predict house prices based on various features such as size, quality, number of rooms, and more.
-
-This project demonstrates:
-
-* Data cleaning and preprocessing
-* Feature engineering and encoding
-* Model training and evaluation
-* Hyperparameter tuning
-* Cross-validation for reliable performance
-* Kaggle submission pipeline
+🚀 A complete end-to-end machine learning pipeline to predict house prices using advanced regression models with strong emphasis on **data preprocessing, validation, and real-world performance**.
 
 ---
 
-## 📊 Dataset
+## 🔥 Highlights
 
-* Source: Kaggle – *House Prices: Advanced Regression Techniques*
-* Training Data: 1460 samples
-* Test Data: 1459 samples
-* Features: 80+ variables describing residential homes
+* 📈 Improved Kaggle score from **0.155 → 0.134**
+* 🎯 Achieved **$15,901 MAE** using XGBoost
+* 🔍 Used **cross-validation** for reliable evaluation
+* ⚙️ Optimized models using **GridSearchCV**
+* 📊 Built a full **production-style ML pipeline**
+
+---
+
+## 📊 Data Understanding
+
+### Distribution After Log Transformation
+
+![Distribution](plots/distribution.png)
+
+✔️ Log transformation reduces skewness and makes the data closer to a normal distribution, improving model learning.
+
+---
+
+## 🔗 Feature Relationships
+
+### Correlation Heatmap
+
+![Correlation](plots/correlation.png)
+
+✔️ Shows relationships between features
+✔️ Helps identify important variables
+
+---
+
+## 📊 Feature Analysis
+
+### Key Feature Relationships
+
+![Scatter](plots/scatter.png)
+
+✔️ Strong relationships observed:
+
+* Overall Quality vs Price
+* Living Area vs Price
+* Garage Capacity vs Price
+
+---
+
+## 🤖 Model Performance
+
+### Actual vs Predicted (XGBoost)
+
+![Prediction](plots/prediction.png)
+
+✔️ Predictions closely follow actual values
+✔️ Indicates strong generalization
+
+---
+
+## 📈 Feature Importance
+
+![Top Features](plots/top_features.png)
+
+Top contributing features:
+
+* Overall Quality
+* Garage Finish
+* Garage Capacity
+* Living Area
 
 ---
 
 ## ⚙️ Workflow
 
-### 1. Data Preprocessing
+### 🔹 Data Preprocessing
 
-* Removed columns with more than 50% missing values
+* Removed columns with >50% missing values
 * Filled missing values:
 
   * Numerical → Median
   * Categorical → Mode
-* Applied **log transformation** on target variable (`SalePrice`) to reduce skewness
+* Ensured consistent preprocessing
 
 ---
 
-### 2. Feature Engineering
+### 🔹 Feature Engineering
 
-* One-hot encoding for categorical variables
-* Feature alignment between train and test datasets
-
----
-
-### 3. Model Training
-
-The following models were used:
-
-* Linear Regression
-* Random Forest Regressor
-* XGBoost Regressor
+* One-hot encoding
+* Feature alignment using `reindex()`
 
 ---
 
-### 4. Model Evaluation
+### 🔹 Modeling
 
-Models were evaluated using:
+| Model             | Purpose     |
+| ----------------- | ----------- |
+| Linear Regression | Baseline    |
+| Random Forest     | Ensemble    |
+| XGBoost           | Final model |
+
+---
+
+### 🔹 Evaluation Metrics
 
 * **R² Score** → Model fit
-* **MAE (Mean Absolute Error)** → Average error
-* **RMSE (Root Mean Squared Error)** → Penalizes large errors
+* **MAE** → Average error
+* **RMSE** → Penalizes large errors
 
-Cross-validation was used to ensure reliable and unbiased performance.
+📌 Used **cross-validation** to avoid overfitting
 
 ---
 
-## 📈 Results
+## 📊 Results
 
 | Model             | MAE ($) | RMSE ($) | R² Score |
 | ----------------- | ------- | -------- | -------- |
-| Linear Regression | 17,061  | 63,440   | 0.36     |
-| Random Forest     | 17,601  | 30,434   | 0.85     |
-| XGBoost           | 15,901  | 27,868   | 0.87     |
+| Linear Regression | 17,061  | 63,440   | 0.84     |
+| Random Forest     | 17,601  | 30,434   | 0.87     |
+| XGBoost           | 15,901  | 27,868   | 0.90     |
 
-✅ **Best Model: XGBoost**
-
----
-
-## 📊 Feature Importance
-
-Top features influencing house prices:
-
-![Top Features](plots/top_features.png)
+🏆 **Best Model: XGBoost**
 
 ---
 
-## 🚀 Kaggle Performance
+## 📈 Performance Improvement
 
-* Score improved from **0.155 → 0.134**
-* Achieved using:
-
-  * Cross-validation
-  * Hyperparameter tuning
-  * Log transformation
+| Stage         | Score |
+| ------------- | ----- |
+| Initial Model | 0.155 |
+| Final Model   | 0.134 |
 
 ---
 
-## 🧠 Key Learnings
+## ⚠️ Challenges & Fixes
 
-* Cross-validation provides realistic model evaluation
-* Log transformation helps with skewed target variables
-* Tree-based models handle non-linearity better than linear models
-* Consistent preprocessing between train and test is critical
-* MAE and RMSE provide better real-world insight than R² alone
+* Fixed **data leakage** using cross-validation
+* Ensured consistent preprocessing between datasets
+* Applied log transformation for skewed data
+* Avoided training-data evaluation bias
+
+---
+
+## 🧠 Concepts Demonstrated
+
+* Cross-validation vs overfitting
+* Feature importance interpretation
+* Model comparison
+* Data preprocessing pipeline
+* Real-world ML evaluation
 
 ---
 
@@ -117,10 +164,11 @@ Top features influencing house prices:
 house-price-prediction/
 │
 ├── data/
-│   ├── train.csv
-│   └── test.csv
-│
 ├── plots/
+│   ├── distribution.png
+│   ├── correlation.png
+│   ├── scatter.png
+│   ├── prediction.png
 │   └── top_features.png
 │
 ├── house_price.py
@@ -131,7 +179,7 @@ house-price-prediction/
 
 ---
 
-## 🛠️ Installation
+## ⚙️ Installation
 
 ```bash
 pip install -r requirements.txt
@@ -139,50 +187,45 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Usage
+## ▶️ Run
 
 ```bash
 python house_price.py
 ```
 
-This will:
-
-* Train models
-* Evaluate performance
-* Generate predictions
-* Create `submission.csv`
-
 ---
 
-## 📦 Requirements
+## 🛠️ Tech Stack
 
+* Python
 * pandas
-* numpy
-* matplotlib
+* NumPy
 * scikit-learn
-* xgboost
+* XGBoost
+* Matplotlib
 
 ---
 
 ## 🎯 Future Improvements
 
-* Feature engineering (e.g., total area, house age)
-* Advanced encoding techniques (target encoding)
+* Feature engineering (total area, house age)
+* Target encoding
 * Model ensembling
-* Pipeline automation
-* Deployment using Streamlit
+* Streamlit deployment
+
+---
+
+## 💼 Why This Project Matters
+
+✔️ Demonstrates real-world ML workflow
+✔️ Shows understanding of model evaluation
+✔️ Highlights problem-solving and debugging skills
 
 ---
 
 ## 🙌 Acknowledgements
 
-* Kaggle for dataset and competition
-* Scikit-learn & XGBoost for ML tools
-
----
-
-## 📬 Contact
-
-If you found this project useful or have suggestions, feel free to reach out!
+* Kaggle dataset
+* Scikit-learn & XGBoost
 
 ---
