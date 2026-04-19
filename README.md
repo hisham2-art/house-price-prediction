@@ -23,7 +23,7 @@
 
 ### Distribution After Log Transformation
 
-![Distribution](plots/distribution.png)
+![Distribution](plots/Distribution_of_SalePrice_after_Log_Transformation.png)
 
 ✔️ Log transformation reduces skewness and makes the data closer to a normal distribution, improving model learning.
 
@@ -33,7 +33,7 @@
 
 ### Correlation Heatmap
 
-![Correlation](plots/correlation.png)
+![Correlation](plots/Correlation_Heat_Map.png)
 
 ✔️ Shows relationships between features
 ✔️ Helps identify important variables
@@ -44,7 +44,7 @@
 
 ### Key Feature Relationships
 
-![Scatter](plots/scatter.png)
+![Scatter](plots/relationship_of_top_6_features_with_SalePrice.png)
 
 ✔️ Strong relationships observed:
 
@@ -58,7 +58,7 @@
 
 ### Actual vs Predicted (XGBoost)
 
-![Prediction](plots/prediction.png)
+![Prediction](plots/Actual_vs_Predicted_Prices(XGBoost).png)
 
 ✔️ Predictions closely follow actual values
 ✔️ Indicates strong generalization
