@@ -186,7 +186,40 @@ Top contributing features:
 pip install -r requirements.txt
 ```
 
-## ▶️ Run
+# ▶️ Run Locally
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/hisham2-art/house-price-prediction.git
+cd house-price-prediction
+```
+
+---
+
+## 2️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 3️⃣ Run Streamlit App
+
+```bash
+streamlit run app.py
+```
+
+The app will open in your browser at:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## 4️⃣ (Optional) Retrain Model
 
 ```bash
 python house_price.py
