@@ -5,177 +5,172 @@
 ![Kaggle](https://img.shields.io/badge/Kaggle-Competition-orange)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
-🚀 A complete end-to-end machine learning pipeline to predict house prices using advanced regression models with strong emphasis on **data preprocessing, validation, and real-world performance**.
+A complete end-to-end machine learning pipeline to predict house prices using advanced regression models, with strong emphasis on **data preprocessing, feature engineering, model validation, and explainability**.
 
 ---
 
 ## 🔥 Highlights
 
-* 📈 Improved Kaggle score from **0.155 → 0.134**
-* 🎯 Achieved **$15,901 MAE** using XGBoost
-* 🔍 Used **cross-validation** for reliable evaluation
-* ⚙️ Optimized models using **GridSearchCV**
-* 📊 Built a full **production-style ML pipeline**
+- 📈 Improved Kaggle score from **0.155 → 0.134**
+- 🎯 Achieved **$15,901 MAE** using XGBoost
+- 🔍 Used **5-fold cross-validation** for reliable evaluation
+- ⚙️ Optimized hyperparameters using **GridSearchCV**
+- 🧠 Integrated **SHAP** for model explainability
+- 📊 Built a full **production-style sklearn Pipeline**
 
 ---
 
-## 📊 Data Understanding
-
-### Distribution After Log Transformation
-
-![Distribution](plots/Distribution_of_SalePrice_after_Log_Transformation.png)
-
-✔️ Log transformation reduces skewness and makes the data closer to a normal distribution, improving model learning.
-
----
-
-## 🔗 Feature Relationships
-
-### Correlation Heatmap
-
-![Correlation](plots/Correlation_Heat_Map.png)
-
-✔️ Shows relationships between features
-✔️ Helps identify important variables
-
----
-
-## 📊 Feature Analysis
-
-### Key Feature Relationships
-
-![Scatter](plots/relationship_of_top_6_features_with_SalePrice.png)
-
-✔️ Strong relationships observed:
-
-* Overall Quality vs Price
-* Living Area vs Price
-* Garage Capacity vs Price
-
----
-
-## 🤖 Model Performance
-
-### Actual vs Predicted (XGBoost)
-
-![Prediction](plots/Actual_vs_Predicted_Prices(XGBoost).png)
-
-✔️ Predictions closely follow actual values
-✔️ Indicates strong generalization
-
----
-
-## 📈 Feature Importance
-
-![Top Features](plots/top_features.png)
-
-Top contributing features:
-
-* Overall Quality
-* Garage Finish
-* Garage Capacity
-* Living Area
-
+## 📂 Project Structure
+house-price-prediction/
+│
+├── data/
+│   ├── train.csv
+│   └── test.csv
+│
+├── models/
+│   ├── house_price_pipeline.pkl
+│   ├── feature_columns.pkl
+│   ├── numerical_cols.pkl
+│   └── categorical_cols.pkl
+│
+├── plots/
+│   ├── Distribution_of_SalePrice_after_Log_Transformation.png
+│   ├── Correlation_Heat_Map.png
+│   ├── Actual_vs_Predicted_Prices(XGBoost).png
+│   ├── residual_analysis.png
+│   ├── shap_global.png
+│   ├── shap_dot.png
+│   └── shap_individual.png
+│
+├── house_price.py
+├── app.py
+├── submission.csv
+├── requirements.txt
+└── README.md
 ---
 
 ## ⚙️ Workflow
 
-### 🔹 Data Preprocessing
+### 🔹 1. Data Preprocessing
+- Applied `log1p` transformation to `SalePrice` to reduce skewness
+- Dropped columns with more than 50% missing values
+- Filled numerical nulls with **median**, categorical nulls with **mode** (inside sklearn Pipeline)
 
-* Removed columns with >50% missing values
-* Filled missing values:
+### 🔹 2. Feature Engineering
+Created domain-informed features:
 
-  * Numerical → Median
-  * Categorical → Mode
-* Ensured consistent preprocessing
+| Feature | Description |
+|---|---|
+| `TotalSF` | Basement + 1st floor + 2nd floor area |
+| `TotalBathrooms` | Full + half baths (weighted) |
+| `TotalPorchSF` | Sum of all porch areas |
+| `HouseAge` | Year sold minus year built |
+| `YearsSinceRemodel` | Year sold minus remodel year |
+| `IsRemodeled` | Binary flag — was the house remodeled? |
+| `HasBasement` | Binary flag |
+| `HasGarage` | Binary flag |
+| `Has2ndFloor` | Binary flag |
+| `IsNew` | Binary flag — built within last 2 years |
 
----
+### 🔹 3. Modeling Pipeline
+Each model was wrapped in a reusable sklearn `Pipeline` with:
+- `SimpleImputer` + `StandardScaler` for numerical features
+- `SimpleImputer` + `OneHotEncoder` for categorical features
 
-### 🔹 Feature Engineering
+| Model | Role |
+|---|---|
+| Linear Regression | Baseline |
+| Random Forest | Ensemble comparison |
+| XGBoost | Final model |
 
-* One-hot encoding
-* Feature alignment using `reindex()`
-
----
-
-### 🔹 Modeling
-
-| Model             | Purpose     |
-| ----------------- | ----------- |
-| Linear Regression | Baseline    |
-| Random Forest     | Ensemble    |
-| XGBoost           | Final model |
-
----
-
-### 🔹 Evaluation Metrics
-
-* **R² Score** → Model fit
-* **MAE** → Average error
-* **RMSE** → Penalizes large errors
-
-📌 Used **cross-validation** to avoid overfitting
+### 🔹 4. Evaluation
+- **R² Score** — overall model fit
+- **MAE** — average prediction error in dollars
+- **RMSE** — penalizes large individual errors
+- Used **5-fold CV** on training set + final evaluation on a held-out test set (80/20 split)
 
 ---
 
 ## 📊 Results
 
-| Model             | MAE ($) | RMSE ($) | R² Score |
-| ----------------- | ------- | -------- | -------- |
-| Linear Regression | 17,061  | 63,440   | 0.84     |
-| Random Forest     | 17,601  | 30,434   | 0.87     |
-| XGBoost           | 15,901  | 27,868   | 0.90     |
+| Model | MAE ($) | RMSE ($) | R² Score |
+|---|---|---|---|
+| Linear Regression | 17,061 | 63,440 | 0.84 |
+| Random Forest | 17,601 | 30,434 | 0.87 |
+| **XGBoost** | **15,901** | **27,868** | **0.90** |
 
 🏆 **Best Model: XGBoost**
 
----
+### Kaggle Submission Score
 
-## 📈 Performance Improvement
-
-| Stage         | Score |
-| ------------- | ----- |
+| Stage | Score |
+|---|---|
 | Initial Model | 0.155 |
-| Final Model   | 0.134 |
+| Final Model | 0.134 |
 
 ---
 
-## ⚠️ Challenges & Fixes
+## 📈 Visualizations
 
-* Fixed **data leakage** using cross-validation
-* Ensured consistent preprocessing between datasets
-* Applied log transformation for skewed data
-* Avoided training-data evaluation bias
+### Distribution of SalePrice (After Log Transformation)
+![Distribution](plots/Distribution_of_SalePrice_after_Log_Transformation.png)
+
+### Correlation Heatmap
+![Correlation](plots/Correlation_Heat_Map.png)
+
+### Actual vs Predicted Prices (XGBoost)
+![Prediction](plots/Actual_vs_Predicted_Prices(XGBoost).png)
+
+### Residual Analysis
+![Residuals](plots/residual_analysis.png)
+
+### SHAP — Global Feature Importance
+![SHAP Global](plots/shap_global.png)
+
+### SHAP — Feature Impact (Dot Plot)
+![SHAP Dot](plots/shap_dot.png)
+
+### SHAP — Individual Prediction Explanation
+![SHAP Individual](plots/shap_individual.png)
 
 ---
 
-## 🧠 Concepts Demonstrated
+## 🧠 Model Explainability (SHAP)
 
-* Cross-validation vs overfitting
-* Feature importance interpretation
-* Model comparison
-* Data preprocessing pipeline
-* Real-world ML evaluation
+SHAP (SHapley Additive exPlanations) was used to explain model predictions at both global and individual levels:
+
+- **Global bar chart** — which features influence price the most on average
+- **Dot plot** — direction and magnitude of each feature's impact per house
+- **Waterfall plot** — why the model predicted a specific price for a single house
+
+Top contributing features:
+- Overall Quality
+- Total Square Footage
+- Garage Capacity
+- House Age
 
 ---
 
-## 📂 Project Structure
+## ⚠️ Challenges & Solutions
 
-```
-house-price-prediction/
-│
-├── data/
-├── plots/
-│   ├── distribution.png
-│   ├── correlation.png
-│   ├── scatter.png
-│   ├── prediction.png
-│   └── top_features.png
-│
-├── house_price.py
-├── submission.csv
-├── requirements.txt
-└── README.md
-```
+| Challenge | Solution |
+|---|---|
+| Data leakage | Used sklearn Pipeline + proper train/holdout split |
+| Skewed target variable | Applied `log1p` transformation |
+| Inconsistent preprocessing across train/test | Fit preprocessor only on training data via Pipeline |
+| Overfitting | Cross-validation throughout; CV score ≈ holdout score |
+
+---
+
+## 🛠️ Tech Stack
+
+- Python 3.10
+- pandas, NumPy
+- scikit-learn
+- XGBoost
+- SHAP
+- Matplotlib, Seaborn
+- Joblib
 
 ---
 
@@ -185,8 +180,6 @@ house-price-prediction/
 pip install -r requirements.txt
 ```
 
----
-
 ## ▶️ Run
 
 ```bash
@@ -195,37 +188,16 @@ python house_price.py
 
 ---
 
-## 🛠️ Tech Stack
-
-* Python
-* pandas
-* NumPy
-* scikit-learn
-* XGBoost
-* Matplotlib
-
----
-
 ## 🎯 Future Improvements
 
-* Feature engineering (total area, house age)
-* Target encoding
-* Model ensembling
-* Streamlit deployment
-
----
-
-## 💼 Why This Project Matters
-
-✔️ Demonstrates real-world ML workflow
-✔️ Shows understanding of model evaluation
-✔️ Highlights problem-solving and debugging skills
+- Target encoding for high-cardinality categorical features
+- Additional feature engineering (price per sq ft, neighbourhood age)
+- Model ensembling (stacking XGBoost + Random Forest)
+- Streamlit web app for interactive predictions
 
 ---
 
 ## 🙌 Acknowledgements
 
-* Kaggle dataset
-* Scikit-learn & XGBoost
-
----
+- [Kaggle — House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
+- scikit-learn, XGBoost, and SHAP open-source libraries
