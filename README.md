@@ -20,34 +20,40 @@ A complete end-to-end machine learning pipeline to predict house prices using ad
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
+
+```text
 house-price-prediction/
 │
-├── data/
-│   ├── train.csv
-│   └── test.csv
+├── app.py                        # Streamlit web application
+├── train.py                      # Model training pipeline
+├── requirements.txt              # Project dependencies
+├── README.md                     # Project documentation
+├── submission.csv                # Kaggle submission file
 │
-├── models/
+├── models/                       # Saved trained models & metadata
 │   ├── house_price_pipeline.pkl
 │   ├── feature_columns.pkl
 │   ├── numerical_cols.pkl
 │   └── categorical_cols.pkl
 │
-├── plots/
+├── plots/                        # Visualizations & diagnostics
 │   ├── Distribution_of_SalePrice_after_Log_Transformation.png
 │   ├── Correlation_Heat_Map.png
+│   ├── relationship_of_top_6_features_with_SalePrice.png
 │   ├── Actual_vs_Predicted_Prices(XGBoost).png
 │   ├── residual_analysis.png
 │   ├── shap_global.png
 │   ├── shap_dot.png
-│   └── shap_individual.png
+│   ├── shap_individual.png
+│   └── app_ui.png
 │
-├── house_price.py
-├── app.py
-├── submission.csv
-├── requirements.txt
-└── README.md
----
+├── data/                         # Dataset files (optional / gitignored)
+│   ├── train.csv
+│   └── test.csv
+│
+└── .gitignore
+```
 
 ## ⚙️ Workflow
 
